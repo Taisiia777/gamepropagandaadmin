@@ -47,7 +47,7 @@ const AnalyticsPage: React.FC = () => {
 
     useEffect(() => {
         // Получаем аналитику и после этого для каждого пользователя получаем заказы
-        axios.get(`${process.env.REACT_APP_NGROK_URL}/links/statistics`)
+        axios.get(`${process.env.VITE_NGROK_URL}/links/statistics`)
             .then(async (response) => {
                 const analyticsData = response.data;
 
@@ -73,7 +73,7 @@ const AnalyticsPage: React.FC = () => {
     // Функция для получения всех заказов пользователя и подсчета продаж и общей суммы
     const getUserOrders = async (userId: number) => {
         try {
-            const response = await axios.get<Order[]>(`${process.env.REACT_APP_NGROK_URL}/users/${userId}/orders`);
+            const response = await axios.get<Order[]>(`${process.env.VITE_NGROK_URL}/users/${userId}/orders`);
             const orders = response.data;
 
             // Подсчитываем общее количество проданных товаров
