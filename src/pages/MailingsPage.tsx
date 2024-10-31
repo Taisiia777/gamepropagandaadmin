@@ -26,14 +26,14 @@ const MailingsPage: React.FC = () => {
 
     useEffect(() => {
         // Получение всех рассылок
-        axios.get(`${process.env.VITE_NGROK_URL}/mailing`)
+        axios.get(`${import.meta.env.VITE_NGROK_URL}/mailing`)
             .then(response => setMailings(response.data))
             .catch(err => console.error(err));
     }, []);
 
     const createMailing = () => {
         // Создание новой рассылки
-        axios.post(`${process.env.VITE_NGROK_URL}/mailing`, { description, type, trigger, imageUrl, url })
+        axios.post(`${import.meta.env.VITE_NGROK_URL}/mailing`, { description, type, trigger, imageUrl, url })
             .then(response => {
                 setMailings([...mailings, response.data]);
                 resetForm();
@@ -51,7 +51,7 @@ const MailingsPage: React.FC = () => {
 
     const sendMailing = (id: number) => {
         // Отправка рассылки
-        axios.post(`${process.env.VITE_NGROK_URL}/mailing/send/${id}`)
+        axios.post(`${import.meta.env.VITE_NGROK_URL}/mailing/send/${id}`)
             .then(() => {
                 console.log('Рассылка отправлена');
             })

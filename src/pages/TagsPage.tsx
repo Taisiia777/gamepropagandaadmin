@@ -18,14 +18,14 @@ const TagsPage: React.FC = () => {
 
     useEffect(() => {
         // Получение всех тегов
-        axios.get(`${process.env.VITE_NGROK_URL}/tags`)
+        axios.get(`${import.meta.env.VITE_NGROK_URL}/tags`)
             .then(response => setTags(response.data))
             .catch(err => console.error(err));
     }, []);
 
     const createTag = () => {
         // Создание нового тега
-        axios.post(`${process.env.VITE_NGROK_URL}/tags`, { name: newTag })
+        axios.post(`${import.meta.env.VITE_NGROK_URL}/tags`, { name: newTag })
             .then(response => {
                 setTags([...tags, response.data]);
                 setNewTag('');
