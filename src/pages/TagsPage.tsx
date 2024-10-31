@@ -18,14 +18,14 @@ const TagsPage: React.FC = () => {
 
     useEffect(() => {
         // Получение всех тегов
-        axios.get('https://455b-95-161-221-131.ngrok-free.app/tags')
+        axios.get(`${process.env.REACT_APP_NGROK_URL}/tags`)
             .then(response => setTags(response.data))
             .catch(err => console.error(err));
     }, []);
 
     const createTag = () => {
         // Создание нового тега
-        axios.post('https://455b-95-161-221-131.ngrok-free.app/tags', { name: newTag })
+        axios.post(`${process.env.REACT_APP_NGROK_URL}/tags`, { name: newTag })
             .then(response => {
                 setTags([...tags, response.data]);
                 setNewTag('');

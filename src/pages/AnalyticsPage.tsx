@@ -1,72 +1,4 @@
-//
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-//
-// // Устанавливаем заголовки для всех запросов
-// axios.defaults.headers.common['ngrok-skip-browser-warning'] = '1';
-//
-// // Определение интерфейса для данных аналитики
-// interface Join {
-//     id: number;
-//     userId: number;
-//     linkId: number;
-//     joinedAt: string;
-// }
-//
-// interface Tag {
-//     id: number;
-//     name: string;
-// }
-//
-// interface Analytics {
-//     id: number;
-//     tag: Tag;
-//     joins: Join[]; // joins - это массив объектов
-//     sales: number;
-//     totalSalesAmount: number | null; // Сумма продаж может быть null
-// }
-//
-// const AnalyticsPage: React.FC = () => {
-//     // Определяем тип для состояния как массив объектов Analytics
-//     const [analytics, setAnalytics] = useState<Analytics[]>([]);
-//
-//     useEffect(() => {
-//         // Получение аналитики
-//         axios.get('https://455b-95-161-221-131.ngrok-free.app/links/statistics')
-//             .then(response => setAnalytics(response.data))
-//             .catch(err => console.error(err));
-//     }, []);
-//
-//     return (
-//         <div>
-//             <h2>Аналитика по тегам</h2>
-//             <table>
-//                 <thead>
-//                 <tr>
-//                     <th>Тег</th>
-//                     <th>Количество вступлений</th>
-//                     <th>Продаж</th>
-//                     <th>Сумма продаж</th>
-//                 </tr>
-//                 </thead>
-//                 <tbody>
-//                 {analytics.map((stat) => (
-//                     <tr key={stat.id}>
-//                         <td>{stat.tag.name}</td>
-//                         {/* Выводим количество вступлений (длина массива joins) */}
-//                         <td>{stat.joins.length}</td>
-//                         <td>{stat.sales}</td>
-//                         {/* Добавляем проверку для totalSalesAmount */}
-//                         <td>{stat.totalSalesAmount ? stat.totalSalesAmount.toFixed(2) + ' ₽' : 'Нет данных'}</td>
-//                     </tr>
-//                 ))}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// };
-//
-// export default AnalyticsPage;
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -115,7 +47,7 @@ const AnalyticsPage: React.FC = () => {
 
     useEffect(() => {
         // Получаем аналитику и после этого для каждого пользователя получаем заказы
-        axios.get('https://455b-95-161-221-131.ngrok-free.app/links/statistics')
+        axios.get(`${process.env.REACT_APP_NGROK_URL}/links/statistics`)
             .then(async (response) => {
                 const analyticsData = response.data;
 
@@ -141,7 +73,7 @@ const AnalyticsPage: React.FC = () => {
     // Функция для получения всех заказов пользователя и подсчета продаж и общей суммы
     const getUserOrders = async (userId: number) => {
         try {
-            const response = await axios.get<Order[]>(`https://455b-95-161-221-131.ngrok-free.app/users/${userId}/orders`);
+            const response = await axios.get<Order[]>(`${process.env.REACT_APP_NGROK_URL}/users/${userId}/orders`);
             const orders = response.data;
 
             // Подсчитываем общее количество проданных товаров
